@@ -1,5 +1,6 @@
 package com.example.enocaproject.service;
 
+import com.example.enocaproject.model.dto.EmployeesDto;
 import com.example.enocaproject.model.entity.Employees;
 import com.example.enocaproject.repository.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,13 @@ public class EmployeesService {
 
 
 
-    public List<Employees> getAllEmployeeMethod() {
+    public List<EmployeesDto> getAllEmployeeMethod() {
 
-        return employeesRepository.findAll() ;
+        List<Employees> employeesList = employeesRepository.findAll();
+        List<EmployeesDto> employeesDto = employeesList.stream()
+                .map(employees -> new EmployeesDto(employees.getEmployee_name(), employees.getTitle(), employees.getCompanyName()))
+                .collect(java.util.stream.Collectors.toList());
+        return employeesDto ;
     }
 
     public ResponseEntity<String> addEmployeeMethod(Employees employees) {

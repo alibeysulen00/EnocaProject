@@ -1,8 +1,10 @@
 package com.example.enocaproject.controller;
 
 
+import com.example.enocaproject.model.dto.EmployeesDto;
 import com.example.enocaproject.model.entity.Employees;
 import com.example.enocaproject.service.EmployeesService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,11 @@ public class EmployeesController {
 
     @Autowired
     private EmployeesService employeesService;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/allEmployee")
-    public List<Employees> getAllEmployee() {
+    public List<EmployeesDto> getAllEmployee() {
        return employeesService.getAllEmployeeMethod();
     }
 
